@@ -2,7 +2,7 @@ package net.software.backendcursojava.entities;
 
 import java.io.Serializable;
 
-import javax.annotation.Generated;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,12 +31,8 @@ public class UserEntity implements Serializable {
     
     @Column(nullable = false)
     private String encryptedPassword;
-
-   //public static long getSerialversionuid() {
-        //return serialversionUID;
-        
-    }
-   
+    
+         
     public long getId() {
         return id;
     }

@@ -26,9 +26,8 @@ public class UserController {
         return "Obtener usuarios";
     }
 
-    @PostMapping //creando informacion
-    //public String createrUser(@requestBody UserDetailRequestModel UserDetails){
-        public UserRest createrUser(@RequestBody UserDetailRequestModel userDetails){  
+    @PostMapping
+    public UserRest createrUser(@RequestBody UserDetailRequestModel userDetails){  
            
             UserRest userToReturn = new UserRest();
 
