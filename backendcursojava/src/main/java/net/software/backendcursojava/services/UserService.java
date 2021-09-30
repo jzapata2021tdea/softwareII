@@ -11,21 +11,24 @@ public class UserService implements UserServiceInterface{
   
     @Override
     public UserDTO createrUser(UserDTO userDTO) {
-        // TODO logica creacion de usuarios
 
+        //TODO logica de la creacion del usuario
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDTO, userEntity);
         
-        UserRepository.save(userEntity);
+        //userRepository.save(userEntity);
 
-        UserDTO userToReturn = UserDTO();
-        BeanUtils.copyProperties(userEntity, userToReturn);
+        //UserDTO userToReturn = UserDTO();
+        //BeanUtils.copyProperties(userEntity, userToReturn);
 
-        userEntity.setEncryptedPassword("tespassword");
-        userEntity.setUserID("tesUserID");
+        userEntity.setEncryptedPassword("testpassword");
+        userEntity.setUserId("testUserId");
 
         UserEntity storedUserdetail = userRepository.save(userEntity);
-
+        
+        UserDTO userToReturn = new UserDTO();
+        BeanUtils.copyProperties(storedUserdetail, userToReturn);
+        
         return userToReturn;
     }
 

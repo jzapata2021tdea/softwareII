@@ -1,6 +1,9 @@
 package net.software.backendcursojava.shared.dto;
+
 import java.io.Serializable;
+
 public class UserDTO implements Serializable {
+    
     private static final Long serialVersionUID = 1L;
 
     private Long id;
@@ -13,13 +16,13 @@ public class UserDTO implements Serializable {
 
     public Object userToReturn;
     
-    public static Long getSerialversionuid() {
+    public static long getSerialversionuid() {
         return serialVersionUID;
     }
-    public Long getId() {
+    public long getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
     public String getUserId() {

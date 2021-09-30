@@ -8,14 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name ="users")
+@Entity(name = "users")
 public class UserEntity implements Serializable {
    
-    private static final long serialversionUID 1L;
+    private static final long serialversionUID  = 1L;
 
     @Id
     @GeneratedValue
-    Private Long id;
+    private long id;
 
     @Column(nullable = false)
     private String userId;
@@ -32,16 +32,17 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private String encryptedPassword;
 
-    public static long getSerialversionuid() {
-        return serialversionUID;
+   //public static long getSerialversionuid() {
+        //return serialversionUID;
+        
+    }
+   
+    public long getId() {
+        return id;
     }
 
-    public Private getLong() {
-        return Long;
-    }
-
-    public void setLong(Private l) {
-        Long = l;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUserId() {
