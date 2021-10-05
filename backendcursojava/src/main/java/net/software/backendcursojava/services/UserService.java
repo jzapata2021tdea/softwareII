@@ -1,5 +1,8 @@
 package net.software.backendcursojava.services;
 import net.software.backendcursojava.UserRepository;
+
+import java.util.UUID;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ public class UserService<userRepository> implements UserServiceInterface{
   
     @Override
     public UserDTO createrUser(UserDTO userDTO) {
+        if(userRepository.findUserByEmail(userDTO.getEmail()) !=null)
+           throw new RuntimeException("El Email ya existe");
 
         
         UserEntity userEntity = new UserEntity();
@@ -26,9 +31,13 @@ public class UserService<userRepository> implements UserServiceInterface{
         //BeanUtils.copyProperties(userEntity, userToReturn);
 
         userEntity.setEncryptedPassword("testpassword");
-        userEntity.setUserId("testUserId");
+        UUID userId = UUID.randomUUID();
+        userEntity.setUserId(userId.toString());
 
-        UserEntity storedUserdetail = UserRepository.save(userEntity);
+
+        //userEntity.setUserId("testUserId");
+
+        UserEntity storedUserdetail = userRepository.save(userEntity);
         
         UserDTO userToReturn = new UserDTO();
         BeanUtils.copyProperties(storedUserdetail, userToReturn);
