@@ -2,7 +2,6 @@ package net.software.backendcursojava.controllers;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,38 +14,33 @@ import net.software.backendcursojava.services.UserServiceInterface;
 import net.software.backendcursojava.shared.dto.UserDTO;
 
 @RestController
-@RequestMapping("/users") //localhost:8080/users
+@RequestMapping("/users") //http://localhost:8080/users
 public class UserController {
 
     @Autowired
     UserServiceInterface userService;
 
-    @GetMapping //obtener consultar informacion
-    public String getUser() {
+    @GetMapping
+    public String getUser(){
         return "Obtener usuarios";
     }
 
     @PostMapping
-    public UserRest createrUser(@RequestBody UserDetailRequestModel userDetails){  
-           
-            UserRest userToReturn = new UserRest();
+    public UserRest createUser(@RequestBody UserDetailRequestModel userDetails){
 
-            UserDTO userDTO = new UserDTO();
+        UserRest userToReturn = new UserRest();
+        UserDTO userDTO = new UserDTO();
 
-            extracted(userDetails, userDTO);
+        BeanUtils.copyProperties(userDetails, userDTO);
+        UserDTO createdUser = userService.createUser(userDTO);
 
-            UserDTO createrUser = userService.createrUser(userDTO);
-
-            BeanUtils.copyProperties(createrUser, userToReturn);
-
-            //return "Creando usuarios";
+        BeanUtils.copyProperties(createdUser, userToReturn);
         return userToReturn;
     }
 
-    private void extracted(UserDetailRequestModel userDetails, UserDTO userDTO) {
-        BeanUtils.copyProperties(userDetails, userDTO);
-    }
+}
+
     
-    }
+    
     
    

@@ -1,61 +1,62 @@
 package net.software.backendcursojava.services;
-import net.software.backendcursojava.BCryptPasswordEncoder;
-import net.software.backendcursojava.UserRepository;
-
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import net.software.backendcursojava.UserRepository;
 import net.software.backendcursojava.entities.UserEntity;
 import net.software.backendcursojava.shared.dto.UserDTO;
 
 @Service
-public class UserService<userRepository> implements UserServiceInterface{
+public class UserService implements UserServiceInterface {
 
     @Autowired
     UserRepository userRepository;
-    
+
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
     @Override
-    public UserDTO createrUser(UserDTO userDTO) {
-        if(userRepository.findUserByEmail(userDTO.getEmail()) !=null)
-           throw new RuntimeException("El Email ya existe");
+    public UserDTO createUser(UserDTO userDTO) {
 
+        if(userRepository.findUserByEmail(userDTO.getEmail()) != null)
+            throw new RuntimeException("usuario y axiste");
+        
         
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDTO, userEntity);
-         
-        //userRepository.save(userEntity);
 
-        //UserDTO userToReturn = UserDTO();
-        //BeanUtils.copyProperties(userEntity, userToReturn);
+        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
 
-        userEntity.setEncryptedPassword("testpassword");
         UUID userId = UUID.randomUUID();
         userEntity.setUserId(userId.toString());
+       
 
+        UserEntity storedUserDetail = userRepository.save(userEntity);
 
-        //userEntity.setUserId("testUserId");
-
-        UserEntity storedUserdetail = userRepository.save(userEntity);
-        
         UserDTO userToReturn = new UserDTO();
-        BeanUtils.copyProperties(storedUserdetail, userToReturn);
-        
+        BeanUtils.copyProperties(storedUserDetail, userToReturn);
         return userToReturn;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
-        return null;
-        
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        UserEntity userEntity = userRepository.findUserByEmail(email);
+        if(userEntity == null){
+            throw new UsernameNotFoundException(email);
+        }
+
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new ArrayList<>()) ;
     }
 
+    
 }
+

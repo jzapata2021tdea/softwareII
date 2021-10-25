@@ -4,7 +4,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import net.software.backendcursojava.shared.dto.UserDTO;
 
-public interface UserServiceInterface extends UserDetailsService {
+public interface UserServiceInterface extends UserDetailsService{
 
-    public UserDTO createrUser(UserDTO userDTO);
- }
+  public UserDTO createUser(UserDTO userDTO);
+    
+}
+

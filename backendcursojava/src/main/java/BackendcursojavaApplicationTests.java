@@ -1,7 +1,6 @@
-package net.software.backendcursojava.entities;
+
 
 import java.io.Serializable;
-
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,34 +9,36 @@ import javax.persistence.Id;
 
 @Entity(name = "users")
 public class UserEntity implements Serializable {
-   
-    private static final long serialVersionUID  = 1L;
+
+    private static final Long serialVersionUID = 1L;
+    
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String userId;
-   
+
     @Column(nullable = false, length = 50)
-    private String firstName;
-    
+    private String firstname;
+
     @Column(nullable = false, length = 50)
-    private String lastName;
-    
-    @Column(nullable = false, length =255)
+    private String lastname;
+
+    @Column(nullable = false, length = 255)
     private String email;
-    
+
     @Column(nullable = false)
     private String encryptedPassword;
-    
-         
-    public long getId() {
+
+   
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,20 +50,20 @@ public class UserEntity implements Serializable {
         this.userId = userId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -80,6 +81,8 @@ public class UserEntity implements Serializable {
     public void setEncryptedPassword(String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
     }
-
     
+
+ 
 }
+
